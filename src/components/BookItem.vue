@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     removeItem(index) {
-      console.log(index)
       this.$store.commit("deleteBook", index);
     },
     editSelected() {
