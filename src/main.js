@@ -20,37 +20,23 @@ const store = new Vuex.Store({
   plugins: [vuexPersist.plugin],
   state: {
     books: [
-      // { 
-      //   id: 1,
-      //   book_name: 'test',
-      //   status: 'none'
-      // },
-      // { 
-      //   id: 2,
-      //   book_name: 'test2',
-      //   status: 'reading'
-      // },
-      // { 
-      //   id: 3,
-      //   book_name: 'test3',
-      //   status: 'done'
-      // },
-      // { 
-      //   id: 4,
-      //   book_name: 'test4',
-      //   status: 'none'
-      // },
-      // { 
-      //   id: 5,
-      //   book_name: 'test5',
-      //   status: 'reading'
-      // },
-      // { 
-      //   id: 6,
-      //   book_name: 'test6',
-      //   status: 'done'
-      // }
-    ]
+      {
+        id: 0,
+        book_name: 'Add a backlog of books here',
+        status: 'none'
+      },
+      {
+        id: 1,
+        book_name: 'Add your current books here',
+        status: 'reading'
+      },
+      {
+        id: 2,
+        book_name: 'Add your completed books here',
+        status: 'done'
+      }
+    ],
+    tab: ''
   },
   getters: {
     backlog: state => {
@@ -64,26 +50,36 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    addBook (state, item) {
+    addBook(state, item) {
       let lastItem = state.books[state.books.length - 1] || { id: -1 };
 
       state.books.push({
         id: (lastItem.id) + 1,
         book_name: item,
-        status: 'none'
+        status: state.tab
       })
     },
-    editBook (state, item) {
-      state.books.forEach( book => {
-        if(book.id == item.id) {
+    editBook(state, item) {
+      state.books.forEach(book => {
+        if (book.id == item.id) {
           book.book_name = item.edit;
         }
       })
     },
-    deleteBook (state, item) {
+    deleteBook(state, item) {
       state.books = state.books.filter((book) => {
         return book.id !== item
       })
+    },
+    changeStatus(state, item) {
+      state.books.forEach(book => {
+        if (book.id == item.id) {
+          book.status = item.status;
+        }
+      })
+    },
+    changeTab(state, item) {
+      state.tab = item;
     }
   }
 })
