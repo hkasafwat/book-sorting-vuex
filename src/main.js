@@ -36,7 +36,7 @@ const store = new Vuex.Store({
         status: 'done'
       }
     ],
-    tab: ''
+    tab: 'none'
   },
   getters: {
     backlog: state => {
@@ -52,7 +52,6 @@ const store = new Vuex.Store({
   mutations: {
     addBook(state, item) {
       let lastItem = state.books[state.books.length - 1] || { id: -1 };
-
       state.books.push({
         id: (lastItem.id) + 1,
         book_name: item,
